@@ -232,7 +232,7 @@ a:focus-visible, button:focus-visible{
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .service-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow); }
-.service-card img{ width: 100%; height: auto; aspect-ratio: 1/0.8; object-fit: cover; }
+.service-card img{ width: 100%; height: auto; aspect-ratio: 1/0.8; object-fit: cover; transition: transform .4s ease-out; }
 .service-card h3{ font-size: 1.08rem; margin: 16px 18px 6px; }
 .service-card a{
   display: block; margin: 0 18px 18px; font-weight: 700; font-size: 0.88rem;
@@ -248,20 +248,27 @@ a:focus-visible, button:focus-visible{
 /* ---------- About ---------- */
 .about{ padding: 88px 0; background: var(--porcelain-deep); }
 .about-grid{ display: grid; gap: 44px; align-items: start; }
-.about-media img{
+.about-media{
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   aspect-ratio: 3/4;
-  object-fit: cover;
+  overflow: hidden;
   width: 100%;
-  height: auto;
   max-width: 380px;
   margin: 0 auto;
+}
+.about-media img{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform .4s ease-out;
 }
 .about-copy h2{ font-size: clamp(1.8rem, 4vw, 2.4rem); max-width: 16ch; }
 .about-copy p{ color: var(--muted); font-size: 1.02rem; }
 .about-gallery{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 28px 0; }
-.about-gallery img{ border-radius: var(--radius-sm); aspect-ratio: 3/4; object-fit: cover; width: 100%; height: auto; }
+.gallery-item{ border-radius: var(--radius-sm); aspect-ratio: 3/4; overflow: hidden; }
+.about-gallery img{ object-fit: cover; width: 100%; height: 100%; display: block; transition: transform .35s ease-out; }
 .social-row{ display: flex; gap: 22px; font-weight: 700; font-size: 0.9rem; }
 .social-row a{ color: var(--gold-deep); }
 
@@ -269,40 +276,9 @@ a:focus-visible, button:focus-visible{
   .about-grid{ grid-template-columns: 0.8fr 1.2fr; }
 }
 
-/* ---------- Plans ---------- */
-.plans{ padding: 88px 0; background: var(--green); color: var(--white); }
-.plans h2{ color: var(--white); font-size: clamp(1.9rem, 4vw, 2.6rem); max-width: 20ch; margin-left: auto; margin-right: auto; }
-.plans-grid{
-  display: grid; gap: 22px; margin-top: 48px;
-}
-.plan-card{
-  background: var(--green-deep);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius);
-  padding: 32px 28px;
-}
-.plan-card-featured{
-  background: var(--gold-soft);
-  color: var(--ink-deep);
-  border-color: transparent;
-}
-.plan-card-featured .plan-kicker{ color: var(--green-deep); opacity: .8; }
-.plan-kicker{
-  text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.74rem;
-  font-weight: 700; color: var(--gold-soft); margin-bottom: 10px;
-}
-.plan-card h3{ font-size: 1.5rem; }
-.plan-card p{ color: rgba(255,255,255,0.75); font-size: 0.96rem; }
-.plan-card-featured p{ color: rgba(23,20,15,0.72); }
-.plans-note{ text-align: center; color: var(--muted-invert); font-size: 0.88rem; margin-top: 36px; }
-@media (min-width: 900px){
-  .plans-grid{ grid-template-columns: repeat(3, 1fr); }
-  .plan-card-featured{ transform: translateY(-14px); }
-}
-
 /* ---------- Testimonials ---------- */
 .testimonials{ padding: 88px 0; }
-.testimonials h2{ font-size: clamp(1.9rem, 4vw, 2.6rem); }
+.testimonials h2{ font-size: clamp(1.9rem, 4vw, 2.6rem); color: var(--green); }
 .testimonial-grid{
   display: grid; gap: 20px; margin: 48px 0 32px;
 }
@@ -337,17 +313,18 @@ a:focus-visible, button:focus-visible{
 /* ---------- Final CTA ---------- */
 .final-cta{
   background: var(--ink-deep); color: var(--white);
-  padding: 96px 0; text-align: center;
+  padding: 77px 0; text-align: center;
 }
 .final-cta-lines{
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 4.4vw, 2.6rem);
+  font-size: clamp(1.28rem, 3.52vw, 2.08rem);
   line-height: 1.3;
   max-width: 18ch;
-  margin: 0 auto 40px;
+  margin: 0 auto 32px;
   font-weight: 400;
 }
 .final-cta-lines strong{ color: var(--gold); font-weight: 600; }
+.final-cta .btn-large{ padding: 15px 32px; font-size: 0.86rem; }
 
 /* ---------- Footer ---------- */
 .site-footer{ background: var(--ink-deep); color: var(--muted-invert); padding: 64px 0 0; }
@@ -385,8 +362,16 @@ a:focus-visible, button:focus-visible{
 }
 .reveal.is-visible{ opacity: 1; transform: none; }
 
+/* ---------- Image hover zoom (desktop only, real hover) ---------- */
+@media (hover: hover) and (pointer: fine){
+  .service-card:hover img{ transform: scale(1.08); }
+  .about-media:hover img{ transform: scale(1.06); }
+  .gallery-item:hover img{ transform: scale(1.1); }
+}
+
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior: auto; }
   .reveal{ opacity: 1; transform: none; transition: none; }
   .btn, .service-card, .whatsapp-fab{ transition: none; }
+  .service-card img, .about-media img, .about-gallery img{ transition: none; }
 }
