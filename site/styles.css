@@ -276,6 +276,31 @@ a:focus-visible, button:focus-visible{
   .about-grid{ grid-template-columns: 0.8fr 1.2fr; }
 }
 
+/* ---------- Results (Antes/Depois) ---------- */
+.results{ padding: 88px 0; background: var(--porcelain-deep); }
+.results h2{ font-size: clamp(1.9rem, 4vw, 2.6rem); }
+.results-grid{
+  display: grid; grid-template-columns: 1fr; gap: 24px;
+  margin: 48px 0 20px;
+}
+.result-card{ margin: 0; }
+.result-media{
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.result-media img{ width: 100%; height: auto; display: block; transition: transform .4s ease-out; }
+.result-card figcaption{
+  margin-top: 14px; text-align: center;
+  font-family: var(--font-display); font-size: 1.05rem; color: var(--ink);
+}
+@media (min-width: 780px){
+  .results-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (hover: hover) and (pointer: fine){
+  .result-card:hover .result-media img{ transform: scale(1.08); }
+}
+
 /* ---------- Testimonials ---------- */
 .testimonials{ padding: 88px 0; }
 .testimonials h2{ font-size: clamp(1.9rem, 4vw, 2.6rem); color: var(--green); }
@@ -306,9 +331,45 @@ a:focus-visible, button:focus-visible{
 .location-card h3{ font-size: 1.3rem; }
 .location-card p{ color: var(--muted); font-size: 0.96rem; }
 .location-actions{ display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.location-map{
+  margin-top: 18px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+.location-map iframe{ width: 100%; height: 100%; border: 0; display: block; }
 @media (min-width: 780px){
   .location-grid{ grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ---------- FAQ ---------- */
+.faq{ padding: 88px 0; }
+.faq h2{ font-size: clamp(1.9rem, 4vw, 2.6rem); }
+.faq-list{ max-width: 760px; margin: 48px auto 0; display: grid; gap: 14px; }
+.faq-item{
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 6px 24px;
+  box-shadow: 0 20px 40px -30px rgba(33,31,28,0.4);
+}
+.faq-item summary{
+  cursor: pointer;
+  list-style: none;
+  padding: 18px 28px 18px 0;
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  position: relative;
+}
+.faq-item summary::-webkit-details-marker{ display: none; }
+.faq-item summary::after{
+  content: "+";
+  position: absolute; right: 0; top: 18px;
+  font-family: var(--font-body); font-size: 1.4rem; color: var(--gold-deep);
+  transition: transform .2s ease;
+}
+.faq-item[open] summary::after{ content: "–"; }
+.faq-item p{ color: var(--muted); padding-bottom: 20px; margin: 0; }
 
 /* ---------- Final CTA ---------- */
 .final-cta{
